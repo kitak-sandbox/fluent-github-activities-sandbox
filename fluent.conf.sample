@@ -1,0 +1,29 @@
+<source>
+  @type github-activities
+  @id github-activities
+
+  access_token XXXXXXXXXXXXXXX
+  interval 1
+  clients 4
+  pos_file /tmp/github-activities.json
+  base_tag github-activity.
+  users kitak,south37
+</source>
+
+<match debug.**>
+  @type stdout
+  @id stdout_output
+</match>
+
+<match github-activity.**>
+  type copy
+
+  <store>
+    @type mongo
+    @id mongo
+    database fluent
+    collection test
+    replace_dot_in_key_with __dot__
+    replace_dollar_in_key_with __dollar__
+  </store>
+</match>
